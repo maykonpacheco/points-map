@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { usePoints } from '../../hooks/usePoints'
 
 import {
@@ -5,7 +6,8 @@ import {
     Header,
     Body,
     BodyPoint,
-    BodyDate
+    BodyDate,
+    BodyEmpty
  } from './styles'
 
  import CultureIcon from '../../assets/svg/culture_icon.svg'
@@ -16,17 +18,29 @@ export function ListingPoints() {
     return (
         <Container>
             <Header>Listagem de pontos</Header>
-           {point.map(point => (      
-             <Body key={point.id}>
-                <BodyPoint>
-                    <img src={CultureIcon} alt="Icone de ponto" />
-                    <p>Ponto nº 001</p>
-                </BodyPoint>
-                <BodyDate>
-                    <p>{point.id}</p>
-                </BodyDate>
-            </Body>
-             ))}
+            {point.length ? 
+             <>
+               {point.map(point => (      
+                <Body key={point.id}>
+                    <BodyPoint>
+                        <img src={CultureIcon} alt="Icone de ponto" />
+                        <p>Ponto nº 001</p>
+                    </BodyPoint>
+                    <BodyDate>
+                    <p>Criado em: {" "} 
+                    {format(
+                        new Date(point.time),
+                        "dd/MM/yyyy 'às' HH:mm",
+                    )}
+                    </p>
+                    </BodyDate>
+                </Body>
+                ))} 
+                </> :
+             <BodyEmpty>
+                 <span>Sem pontos de monitoramento para exibir no momento.</span>
+             </BodyEmpty>
+             }
         </Container>
     )
 }

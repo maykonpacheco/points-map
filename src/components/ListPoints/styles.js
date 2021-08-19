@@ -21,7 +21,23 @@ export const Header = styled.div`
 export const Body = styled.div`
     padding: .7rem;
     color: #20252B;
+
+    span {
+        text-align: center;
+    }
 `;
+
+export const BodyEmpty = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 4rem;
+    color: #20252B;
+
+`;
+
+
 
 export const BodyPoint = styled.div`
     display: flex;
