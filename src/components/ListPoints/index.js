@@ -23,8 +23,8 @@ export function ListingPoints() {
                {point.map(point => (      
                 <Body key={point.id}>
                     <BodyPoint>
-                        <img src={CultureIcon} alt="Icone de ponto" />
-                        <p>Ponto nº 001</p>
+                        <img src={CultureIcon} alt="Point icon" />
+                        <p>Ponto nº {point.order}</p>
                     </BodyPoint>
                     <BodyDate>
                     <p>Criado em: {" "} 

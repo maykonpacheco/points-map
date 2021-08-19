@@ -94,6 +94,7 @@ export function Map () {
           ...current,
           {
               id: uuidv4(),
+              order: point.length + 1,
               lat: -15.178993238568875,
               lng: -53.585003852844245,
               time: new Date()
