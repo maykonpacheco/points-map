@@ -74,7 +74,7 @@ export default function Map({ onOpenPointModal }) {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyCMTLHRWGE0rmGRRdug9ca46YPZI54WA_M',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   const onLoad = useCallback((m) => {
