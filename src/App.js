@@ -1,12 +1,13 @@
+import { PointsProvider } from './hooks/usePoints'
 import { PointsManagement } from './pages/PointsManagement'
 import { GlobalStyle } from './styles/global'
 
 function App() {
   return (
-    <div>
+    <PointsProvider>
       <PointsManagement />
       <GlobalStyle />
-    </div>
+    </PointsProvider>
   );
 }
 

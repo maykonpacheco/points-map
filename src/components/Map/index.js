@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { GoogleMap, useJsApiLoader, Marker, Polyline } from '@react-google-maps/api';
+
+import { usePoints } from '../../hooks/usePoints'
+
+import {v4 as uuidv4} from 'uuid';
+
 import PinOff from '../../assets/svg/PinOff.svg'
 import Pin from '../../assets/svg/Pin.svg'
 import Trash from '../../assets/svg/Trash.svg'
-
 import { features } from '../../assets/json/Talhao.json'
-import {v4 as uuidv4} from 'uuid';
 
 import { ButtonAdd, ButtonDeleteAll, ButtonDeleteOnePin } from './styles'
 
@@ -45,10 +48,10 @@ export function Map () {
     const [map, setMap] = useState(null)
     const [markers, setMarkers] = useState([])
     const [coordinates, setCoordinates] = useState([])
-    const [addPlace, setAddPlace] = useState([])
+
+    const { point, setPoint } = usePoints()
 
     const [idPointSelected, setIdPointSelected] = useState()
-    
 
       useEffect(() => {
         function addTalhao() {
@@ -86,12 +89,8 @@ export function Map () {
         setMap(null)
       }, [])
 
-      function getOnDragEnd(event) {
-      
-      }
-
       function createNewPoint() {
-        setMarkers((current) => [
+        setPoint((current) => [
           ...current,
           {
               id: uuidv4(),
@@ -103,20 +102,19 @@ export function Map () {
       }
 
       function updateLatLng (event, idMarkersDrag) { 
-        setMarkers(markers.map((marker) => marker.id === idMarkersDrag 
-        ? {...marker, lat: event.latLng.lat(), lng: event.latLng.lng()}
-        : {...marker}
+        setPoint(point.map((point) => point.id === idMarkersDrag 
+        ? {...point, lat: event.latLng.lat(), lng: event.latLng.lng()}
+        : {...point}
         ))
       }
 
       function deletePoint() {
-        setMarkers(markers.filter(item => item.id !== idPointSelected))
+        setPoint(point.filter(item => item.id !== idPointSelected))
       }
 
       function deleteAllPoint () {
-        setMarkers([])
+        setPoint([])
       }
-      console.log(markers, 'markers')
 
     return isLoaded ? (
         <div>
@@ -133,17 +131,16 @@ export function Map () {
                     options={options}
                  />
 
-                {markers.map((marker) => (
+                {point.map((point) => (
                   <>
                   <Marker
-                    key={marker.id}
+                    key={point.id}
                     clickable={true}
                     draggable={true}
-                    onDragEnd={(event) => updateLatLng(event, marker.id)}
+                    onDragEnd={(event) => updateLatLng(event, point.id)}
                     icon={PinOff}
-                    key={marker.time.toISOString()}
-                    position={{ lat: marker.lat, lng: marker.lng }}
-                    onClick={() => setIdPointSelected(marker.id)}
+                    position={{ lat: point.lat, lng: point.lng }}
+                    onClick={() => setIdPointSelected(point.id)}
                   />
                 </>
                 ))}
@@ -151,7 +148,7 @@ export function Map () {
                   <p>Deletar pin</p>
                   <img src={Trash} alt="Ponto" />
                 </ButtonDeleteOnePin>
-                <ButtonAdd onClick={createNewPoint}>
+                <ButtonAdd onClick={() => createNewPoint()}>
                   <p>Adicionar Novo</p>
                   <img src={Pin} alt="Ponto" />
                 </ButtonAdd>
