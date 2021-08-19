@@ -12,6 +12,7 @@ import {
  import Trash from '../../assets/svg/TrashRed.svg'
  import Close from '../../assets/svg/Close.svg'
 
+
 export function ModalDeletePoint({ isOpen, onRequestClose }) {
     const { point, setPoint, pointSelected, setPointSelected } = usePoints()
 
@@ -34,6 +35,7 @@ export function ModalDeletePoint({ isOpen, onRequestClose }) {
             onRequestClose={onRequestClose}
             overlayClassName="react-modal-overlay"
             className="react-modal-content"
+            ariaHideApp={false}
         >
                 <Container>
                     <ButtonClose>

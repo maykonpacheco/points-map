@@ -10,7 +10,7 @@ export const ButtonDeleteOnePin = styled.button`
     right: 2rem;
     display: flex;
     background: #D20200;
-    padding: .8rem 2.3rem;
+    padding: .8rem 3.3rem;
     border-radius: 4px;
     text-transform: uppercase;
 
@@ -26,7 +26,7 @@ export const ButtonAdd = styled.button`
     right: 2rem;
     display: flex;
     background: #FFFFFF;
-    padding: .8rem 2rem;
+    padding: .8rem 2.3rem;
     border-radius: 4px;
     text-transform: uppercase;
 
@@ -42,7 +42,7 @@ export const ButtonDeleteAll = styled.button`
     right: 2rem;
     display: flex;
     background: #D20200;
-    padding: .8rem 2.3rem;
+    padding: .8rem 2.6rem;
     border-radius: 4px;
     text-transform: uppercase;
 

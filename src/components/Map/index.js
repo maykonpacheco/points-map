@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { GoogleMap, useJsApiLoader, Marker, Polyline } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Polygon } from '@react-google-maps/api';
+import {v4 as uuidv4} from 'uuid';
 
 import { usePoints } from '../../hooks/usePoints'
-
-import {v4 as uuidv4} from 'uuid';
 
 import PinOff from '../../assets/svg/PinOff.svg'
 import Pin from '../../assets/svg/Pin.svg'
 import Trash from '../../assets/svg/Trash.svg'
+import PinOn from '../../assets/svg/PinOn.svg'
+
 import { features } from '../../assets/json/Talhao.json'
 
 import { ButtonAdd, ButtonDeleteAll, ButtonDeleteOnePin } from './styles'
@@ -22,10 +23,10 @@ const containerStyle = {
     lng: -53.585003852844245
   };
   
-  const options = {
-    fillColor: "lightblue",
-    fillOpacity: 1,
-    strokeColor: "blue",
+  const optionsPolygon = {
+    fillColor: "white",
+    fillOpacity: 0.35,
+    strokeColor: "red",
     strokeOpacity: 1,
     strokeWeight: 2,
     clickable: false,
@@ -36,13 +37,15 @@ const containerStyle = {
   }
 
   const optionsMap = {
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    mapTypeId: 'satellite'
   }
   
-
 export function Map ({ onOpenPointModal }) {
     const [map, setMap] = useState(null)
     const [coordinates, setCoordinates] = useState([])
+    const [iconPin, setIconPin] = useState()
+
     const { point, setPoint, pointSelected, setPointSelected } = usePoints()
 
       useEffect(() => {
@@ -95,10 +98,20 @@ export function Map ({ onOpenPointModal }) {
       }
 
       function updateLatLng (event, idPointDrag) { 
+        setIconPin(event.domEvent.type)
         setPoint(point.map((point) => point.id === idPointDrag 
         ? {...point, lat: event.latLng.lat(), lng: event.latLng.lng()}
         : {...point}
         ))
+      }
+
+      function addMouseMoveInIconPin(event) {
+        setIconPin(event.domEvent.type)
+      }
+
+      function onModalDeleteAllPoints() {
+        setPointSelected(null)
+        onOpenPointModal()
       }
 
     return isLoaded ? (
@@ -110,23 +123,20 @@ export function Map ({ onOpenPointModal }) {
                 center={initialCoordinates}
                 options={optionsMap}
             >
-                <Polyline
+                <Polygon
                     path={coordinates}
-                    options={options}
+                    options={optionsPolygon}
                  />
-
                 {point.map((point) => (
-                  <>
                   <Marker
                     key={point.id}
-                    clickable={true}
                     draggable={true}
                     onDragEnd={(event) => updateLatLng(event, point.id)}
-                    icon={PinOff}
+                    icon={iconPin === 'mousemove' ? PinOn : PinOff}
+                    onDragStart={(event) => addMouseMoveInIconPin(event)}
                     position={{ lat: point.lat, lng: point.lng }}
                     onClick={() => setPointSelected(point.id)}
                   />
-                </>
                 ))}
                 { pointSelected &&
                   <ButtonDeleteOnePin onClick={onOpenPointModal}>
@@ -140,8 +150,8 @@ export function Map ({ onOpenPointModal }) {
                 </ButtonAdd>
 
                { point.length && 
-                <ButtonDeleteAll onClick={onOpenPointModal}>
-                    <p>Deletar tudo</p>
+                <ButtonDeleteAll onClick={onModalDeleteAllPoints}>
+                    <p>Deletar todos</p>
                     <img src={Trash} alt="Ponto" />
                   </ButtonDeleteAll>
                }

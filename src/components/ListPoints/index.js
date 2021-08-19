@@ -21,8 +21,8 @@ export function ListingPoints() {
             {point.length ? 
              <>
                {point.map(point => (      
-                <Body>
-                    <BodyPoint key={point.id}>
+                <Body key={point.id}>
+                    <BodyPoint>
                         <img src={CultureIcon} alt="Point icon" />
                         <p>Ponto nº {point.order}</p>
                     </BodyPoint>
