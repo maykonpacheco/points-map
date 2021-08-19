@@ -1,11 +1,10 @@
-import {
-    Container,
- } from './styles'
+import React from 'react';
+import { Container } from './styles';
 
-export function Header() {
-    return (
-       <Container>
-           <h1>Gestão de pontos no mapa</h1>
-       </Container>
-    )
+export default function Header() {
+  return (
+    <Container>
+      <h1>Gestão de pontos no mapa</h1>
+    </Container>
+  );
 }

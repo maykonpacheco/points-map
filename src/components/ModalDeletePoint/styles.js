@@ -1,60 +1,59 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    color: #20252B;
+  color: #20252b;
 `;
 
 export const Header = styled.div`
-    background: #FFFFFF;
-    border: 1px solid #e5e7f1;
-    padding: 1rem 2rem;
+  background: #ffffff;
+  border: 1px solid #e5e7f1;
+  padding: 1rem 2rem;
 `;
 
 export const ButtonClose = styled.div`
-    display: flex;
-    justify-content: end;
-    background: #20252B;
-    padding: .5rem;
-    border-radius: 0.30rem 0.30rem 0 0;
+  display: flex;
+  justify-content: end;
+  background: #20252b;
+  padding: 0.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
 `;
 
 export const Body = styled.div`
-    background: #F5F6FA;
-    padding: 2rem;
+  background: #f5f6fa;
+  padding: 2rem;
 
-    div {
-        padding: 1rem;
-        box-shadow: 0 .3rem .5rem 0 rgb(61 66 80 / 25%);
-        border-radius: 8px;
+  div {
+    padding: 1rem;
+    box-shadow: 0 0.3rem 0.5rem 0 rgb(61 66 80 / 25%);
+    border-radius: 8px;
 
-        span {
-            font-weight: bold;
-        }
+    span {
+      font-weight: bold;
     }
+  }
 `;
 
 export const Footer = styled.div`
-    padding: 1.5rem 3rem;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+
+  button {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: uppercase;
+    color: #d20200;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid #d20200;
+    font-weight: bold;
+    border-radius: 4px;
 
-    button {
-        display: flex;
-        color: #D20200;
-        padding: .7rem 1.5rem;
-        border: 1px solid #D20200;
-        font-weight: bold;
-        border-radius: 4px;
-
-        p {
-            margin-left: 1rem
-        }
+    p {
+      margin-left: 1rem;
     }
+  }
+`;
 
-    span {
-        font-size: 14px;
-        cursor: pointer;
-    }
+export const ButtonCancel = styled.div`
+  cursor: pointer;
 `;
