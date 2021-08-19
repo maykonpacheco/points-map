@@ -26,7 +26,7 @@ const containerStyle = {
   const optionsPolygon = {
     fillColor: "white",
     fillOpacity: 0.35,
-    strokeColor: "red",
+    strokeColor: "white",
     strokeOpacity: 1,
     strokeWeight: 2,
     clickable: false,
@@ -49,7 +49,7 @@ export function Map ({ onOpenPointModal }) {
     const { point, setPoint, pointSelected, setPointSelected } = usePoints()
 
       useEffect(() => {
-        function addTalhao() {
+        function loadCoordinates() {
             const response = features.map(f => (
                 f.geometry.coordinates[0]
             ))
@@ -66,7 +66,7 @@ export function Map ({ onOpenPointModal }) {
 
             setCoordinates(coordinate[0])
         }
-        addTalhao()
+        loadCoordinates()
     },[]);
 
     const { isLoaded } = useJsApiLoader({
