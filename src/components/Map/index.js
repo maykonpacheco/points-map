@@ -102,6 +102,7 @@ export default function Map({ onOpenPointModal }) {
 
   function updateLatLng(event, idPointDrag) {
     setIconPin(event.domEvent.type);
+    setIconPin('mousemove');
     setPoint(
       point.map((points) =>
         points.id === idPointDrag
@@ -111,13 +112,19 @@ export default function Map({ onOpenPointModal }) {
     );
   }
 
-  function addMouseMoveInIconPin(event) {
+  function addMouseMoveInIconPin(event, id) {
+    setPointSelected(id);
     setIconPin(event.domEvent.type);
   }
 
   function onModalDeleteAllPoints() {
     setPointSelected(null);
     onOpenPointModal();
+  }
+
+  function markTheSelectedPin(id) {
+    setIconPin('mousemove');
+    setPointSelected(id);
   }
 
   return isLoaded ? (
@@ -135,10 +142,14 @@ export default function Map({ onOpenPointModal }) {
           key={points.id}
           draggable
           onDragEnd={(event) => updateLatLng(event, points.id)}
-          icon={iconPin === 'mousemove' ? PinOn : PinOff}
-          onDragStart={(event) => addMouseMoveInIconPin(event)}
+          icon={
+            iconPin === 'mousemove' && points.id === pointSelected
+              ? PinOn
+              : PinOff
+          }
+          onDragStart={(event) => addMouseMoveInIconPin(event, points.id)}
           position={{ lat: points.lat, lng: points.lng }}
-          onClick={() => setPointSelected(points.id)}
+          onClick={() => markTheSelectedPin(points.id)}
         />
       ))}
       {pointSelected && (
