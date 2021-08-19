@@ -1,4 +1,4 @@
-# Points Management ::memo:
+# Points Management :memo:
 
 ### Objetivo
 

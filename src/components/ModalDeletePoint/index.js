@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Modal from 'react-modal';
+
 import { usePoints } from '../../hooks/usePoints';
 
 import {

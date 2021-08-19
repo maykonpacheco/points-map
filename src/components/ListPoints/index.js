@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { format } from 'date-fns';
+
 import { usePoints } from '../../hooks/usePoints';
 
 import {
