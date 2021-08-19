@@ -35,6 +35,10 @@ const containerStyle = {
     geodesic: false,
     zIndex: 1
   }
+
+  const optionsMap = {
+    disableDefaultUI: true
+  }
   
 
 export function Map () {
@@ -122,6 +126,7 @@ export function Map () {
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 center={initialCoordinates}
+                options={optionsMap}
             >
                 <Polyline
                     path={coordinates}
