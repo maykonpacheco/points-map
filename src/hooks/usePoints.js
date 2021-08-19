@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, useContext } from "react";
 
 const CartContext = createContext();
 
 export function PointsProvider({ children }) {
   const [point, setPoint] = useState([])
-
-  function createNewPoint (item) {
-    setPoint(item)
-  }
-
-  console.log(point, 'cart')
+  const [pointSelected, setPointSelected] = useState(null)
 
   return (
     <CartContext.Provider
-      value={{ point, setPoint, createNewPoint }}
+      value={{ 
+        point, 
+        setPoint, 
+        pointSelected, 
+        setPointSelected
+       }}
     >
       {children}
     </CartContext.Provider>

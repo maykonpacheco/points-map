@@ -1,4 +1,6 @@
 import Modal from 'react-modal'
+import { usePoints } from '../../hooks/usePoints'
+
 import {
     Container,
     Header,
@@ -11,6 +13,21 @@ import {
  import Close from '../../assets/svg/Close.svg'
 
 export function ModalDeletePoint({ isOpen, onRequestClose }) {
+    const { point, setPoint, pointSelected, setPointSelected } = usePoints()
+
+
+    function deletePoint() {
+        setPoint(point.filter(item => item.id !== pointSelected))
+        onRequestClose()
+        setPointSelected(null)
+   }
+
+    function deleteAllPoint () {
+        setPoint([])
+        onRequestClose()
+        setPointSelected(null)
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -23,7 +40,13 @@ export function ModalDeletePoint({ isOpen, onRequestClose }) {
                          <img src={Close} alt="Icone para fechar" />
                     </ButtonClose>
                     <Header>
-                        <h2>Excluir ponto selecionado?</h2>
+                    <h2> 
+                        {
+                            pointSelected 
+                            ? "Excluir ponto selecionado?"
+                            : "Excluir todos os ponto?"
+                        }
+                   </h2>
                     </Header>
                     <Body>
                         <div>
@@ -31,13 +54,24 @@ export function ModalDeletePoint({ isOpen, onRequestClose }) {
                             <p>Essa ação não poderá ser desfeita.</p>
                         </div>
                     </Body>
-                    <Footer>
-                        <button>
-                            <img src={Trash} alt="Botão de delete" />
+                   { pointSelected ?
+                   <Footer>
+                        <button onClick={() => deletePoint()}>
+                            <img src={Trash} alt="Delete button" />
                             <p>Excluir</p>
                         </button>
-                        <span>cancelar</span>
+                        <span onClick={onRequestClose}>cancelar</span>
                     </Footer>
+                    :
+                    <Footer>
+                     <button onClick={() => deleteAllPoint()}>
+                        <img src={Trash} alt="Delete button" />
+                        <p>Excluir</p>
+                        </button>
+                     <span onClick={onRequestClose}>cancelar</span>
+                    </Footer>    
+                    }    
+        
                 </Container>
         </Modal>
     )

@@ -22,10 +22,6 @@ const containerStyle = {
     lng: -53.585003852844245
   };
   
-  const onLoad2 = marker => {
-    console.log('marker: ', marker)
-  }
-  
   const options = {
     fillColor: "lightblue",
     fillOpacity: 1,
@@ -44,14 +40,10 @@ const containerStyle = {
   }
   
 
-export function Map () {
+export function Map ({ onOpenPointModal }) {
     const [map, setMap] = useState(null)
-    const [markers, setMarkers] = useState([])
     const [coordinates, setCoordinates] = useState([])
-
-    const { point, setPoint } = usePoints()
-
-    const [idPointSelected, setIdPointSelected] = useState()
+    const { point, setPoint, pointSelected, setPointSelected } = usePoints()
 
       useEffect(() => {
         function addTalhao() {
@@ -102,23 +94,14 @@ export function Map () {
         ])
       }
 
-      function updateLatLng (event, idMarkersDrag) { 
-        setPoint(point.map((point) => point.id === idMarkersDrag 
+      function updateLatLng (event, idPointDrag) { 
+        setPoint(point.map((point) => point.id === idPointDrag 
         ? {...point, lat: event.latLng.lat(), lng: event.latLng.lng()}
         : {...point}
         ))
       }
 
-      function deletePoint() {
-        setPoint(point.filter(item => item.id !== idPointSelected))
-      }
-
-      function deleteAllPoint () {
-        setPoint([])
-      }
-
     return isLoaded ? (
-        <div>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 zoom={16}
@@ -141,40 +124,27 @@ export function Map () {
                     onDragEnd={(event) => updateLatLng(event, point.id)}
                     icon={PinOff}
                     position={{ lat: point.lat, lng: point.lng }}
-                    onClick={() => setIdPointSelected(point.id)}
+                    onClick={() => setPointSelected(point.id)}
                   />
                 </>
                 ))}
-                <ButtonDeleteOnePin onClick={() => deletePoint()}>
-                  <p>Deletar pin</p>
-                  <img src={Trash} alt="Ponto" />
-                </ButtonDeleteOnePin>
+                { pointSelected &&
+                  <ButtonDeleteOnePin onClick={onOpenPointModal}>
+                    <p>Deletar pin</p>
+                    <img src={Trash} alt="Ponto" />
+                  </ButtonDeleteOnePin>
+                }
                 <ButtonAdd onClick={() => createNewPoint()}>
                   <p>Adicionar Novo</p>
                   <img src={Pin} alt="Ponto" />
                 </ButtonAdd>
-                <ButtonDeleteAll onClick={() => deleteAllPoint()}>
-                  <p>Deletar tudo</p>
-                  <img src={Trash} alt="Ponto" />
-                </ButtonDeleteAll>
 
+               { point.length && 
+                <ButtonDeleteAll onClick={onOpenPointModal}>
+                    <p>Deletar tudo</p>
+                    <img src={Trash} alt="Ponto" />
+                  </ButtonDeleteAll>
+               }
             </GoogleMap>
-
-        </div>
      ) : <></>
 }
-
-const mystyle = {
-    position: "absolute"
-};
-
-const mystyle2 = {
-  position: "absolute",
-  top: "500px"
-};
-
-
-const mystyle22 = {
-  position: "absolute",
-  top: "50px"
-};
