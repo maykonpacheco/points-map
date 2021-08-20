@@ -47,7 +47,6 @@ const optionsMap = {
 };
 
 export default function Map({ onOpenPointModal }) {
-  // const [, setMap] = useState(null);
   const [coordinates, setCoordinates] = useState([]);
   const [iconPin, setIconPin] = useState();
 
