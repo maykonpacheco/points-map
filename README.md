@@ -3,8 +3,6 @@
 ### Objetivo
 
 Com essa aplicação o produtor consegue inserir novos pontos no mapa, mover ou excluir pontos já existentes, de acordo com a sua necessidade.
-Este aplicativo faz parte de um teste técnico realizado para a empresa [checkplant](https://www.checkplant.com.br/).
-
 
 ## 👩‍🌾 Features
 

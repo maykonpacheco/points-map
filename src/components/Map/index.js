@@ -155,18 +155,18 @@ export default function Map({ onOpenPointModal }) {
       {pointSelected && (
         <ButtonDeleteOnePin onClick={onOpenPointModal}>
           <p>Deletar pin</p>
-          <img src={Trash} alt="Ponto" />
+          <img src={Trash} alt="Point" />
         </ButtonDeleteOnePin>
       )}
       <ButtonAdd onClick={() => createNewPoint()}>
         <p>Adicionar Novo</p>
-        <img src={Pin} alt="Ponto" />
+        <img src={Pin} alt="Point" />
       </ButtonAdd>
 
       {point.length && (
         <ButtonDeleteAll onClick={onModalDeleteAllPoints}>
           <p>Deletar todos</p>
-          <img src={Trash} alt="Ponto" />
+          <img src={Trash} alt="Point" />
         </ButtonDeleteAll>
       )}
     </GoogleMap>
