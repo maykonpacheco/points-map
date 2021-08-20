@@ -16,7 +16,12 @@ import PinOn from '../../assets/svg/PinOn.svg';
 
 import { features } from '../../assets/json/Talhao.json';
 
-import { ButtonAdd, ButtonDeleteAll, ButtonDeleteOnePin } from './styles';
+import {
+  ButtonAdd,
+  ButtonDeleteAll,
+  ButtonDeleteOnePin,
+  ContainerButton,
+} from './styles';
 
 const containerStyle = {
   width: '100vw',
@@ -139,23 +144,25 @@ export default function Map({ onOpenPointModal }) {
           onClick={() => markTheSelectedPin(points.id)}
         />
       ))}
-      {pointSelected && (
-        <ButtonDeleteOnePin onClick={onOpenPointModal}>
-          <p>Deletar pin</p>
-          <img src={Trash} alt="Point" />
-        </ButtonDeleteOnePin>
-      )}
-      <ButtonAdd onClick={() => createNewPoint()}>
-        <p>Adicionar Novo</p>
-        <img src={Pin} alt="Point" />
-      </ButtonAdd>
+      <ContainerButton>
+        {pointSelected && (
+          <ButtonDeleteOnePin onClick={onOpenPointModal}>
+            <p>Deletar pin</p>
+            <img src={Trash} alt="Point" />
+          </ButtonDeleteOnePin>
+        )}
+        <ButtonAdd onClick={() => createNewPoint()}>
+          <p>Adicionar Novo</p>
+          <img src={Pin} alt="Point" />
+        </ButtonAdd>
 
-      {point.length && (
-        <ButtonDeleteAll onClick={onModalDeleteAllPoints}>
-          <p>Deletar todos</p>
-          <img src={Trash} alt="Point" />
-        </ButtonDeleteAll>
-      )}
+        {point.length && (
+          <ButtonDeleteAll onClick={onModalDeleteAllPoints}>
+            <p>Deletar todos</p>
+            <img src={Trash} alt="Point" />
+          </ButtonDeleteAll>
+        )}
+      </ContainerButton>
     </GoogleMap>
   ) : (
     <></>
