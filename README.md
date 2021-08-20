@@ -14,5 +14,4 @@ Com essa aplicação o produtor consegue inserir novos pontos no mapa, mover ou 
 
 ### Instalação
 
-Para executar o projeto, você deve adicionar a sua chave de API `MAPS_API_KEY` do Google Maps usando o arquivo de referência `.env.example`, conforme a [documentação](https://developers.google.cn/maps/documentation/places/web-service/get-api-key).
-
+Para executar o projeto, você deve adicionar a sua chave de API `MAPS_API_KEY` do Google Maps usando o arquivo de referência `.env.example`.
