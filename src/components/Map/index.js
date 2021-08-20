@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GoogleMap,
   useJsApiLoader,
@@ -20,12 +20,12 @@ import { ButtonAdd, ButtonDeleteAll, ButtonDeleteOnePin } from './styles';
 
 const containerStyle = {
   width: '100vw',
-  height: '89vh',
+  height: '100vh',
 };
 
 const initialCoordinates = {
-  lat: -15.178993238568875,
-  lng: -53.585003852844245,
+  lat: -15.178,
+  lng: -53.585,
 };
 
 const optionsPolygon = {
@@ -47,7 +47,7 @@ const optionsMap = {
 };
 
 export default function Map({ onOpenPointModal }) {
-  const [, setMap] = useState(null);
+  // const [, setMap] = useState(null);
   const [coordinates, setCoordinates] = useState([]);
   const [iconPin, setIconPin] = useState();
 
@@ -76,16 +76,6 @@ export default function Map({ onOpenPointModal }) {
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
-
-  const onLoad = useCallback((m) => {
-    const bounds = new window.google.maps.LatLngBounds();
-    m.fitBounds(bounds);
-    setMap(m);
-  }, []);
-
-  const onUnmount = useCallback(() => {
-    setMap(null);
-  }, []);
 
   function createNewPoint() {
     setPoint((current) => [
@@ -131,8 +121,6 @@ export default function Map({ onOpenPointModal }) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       zoom={16}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
       center={initialCoordinates}
       options={optionsMap}
     >
